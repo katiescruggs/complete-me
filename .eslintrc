@@ -1,11 +1,12 @@
 {
+  "parser": "babel-eslint",
+  "extends": "eslint:recommended",
   "env": {
     "browser": true,
-    "commonjs": true,
-    "es6": true,
-    "mocha": true
+    "mocha": true,
+    "node": true,
+    "es6": true
   },
-  "extends": "eslint:recommended",
   "parserOptions": {
     "sourceType": "module"
   },
@@ -18,16 +19,10 @@
       }
     ],
     "curly": "error",
-    "semi-spacing": [
-      "error", {
-        "before": false,
-        "after": true
-      }
-    ],
-    "indent": [
-      "error",
-      2
-    ],
+    "eqeqeq": ["error", "always"],
+    "getter-return": ["error", { "allowImplicit": true }],
+    
+    "indent": ["warn", 2],
     "key-spacing": [
       "error", {
         "beforeColon": false,
@@ -57,9 +52,17 @@
       "error",
       "always"
     ],
+    "no-template-curly-in-string": "error",
     "object-shorthand": [
       "error",
       "always"
+    ],
+    "semi": ["error", "always"],
+    "semi-spacing": [
+      "error", {
+        "before": false,
+        "after": true
+      }
     ],
     "space-before-blocks": [
       "error", {
@@ -73,5 +76,8 @@
         "int32Hint": false
       }
     ]
+  },
+  "globals": {
+    "expect": true
   }
 }
