@@ -6,5 +6,5 @@ import {bubbleSort, insertionSort, mergeSort, quickSort} from '@katiescruggs/sor
 describe('Example Test File', () => {
   it('should successfully use sorts we imported', function() {
     expect(bubbleSort([3, 2, 1])).to.deep.equal([1,2,3]);
-  })
-})
+  });
+});
