@@ -22,5 +22,8 @@
     "eslint": "^4.9.0",
     "mocha": "^3.4.2",
     "webpack": "^3.3.0"
+  },
+  "dependencies": {
+    "@katiescruggs/sorting-suite": "git+https://github.com/katiescruggs/sorting-suite.git"
   }
 }
