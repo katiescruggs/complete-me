@@ -28,7 +28,12 @@ describe('TRIE', () => {
 describe('INSERT', () => {
   let trie = new Trie();
   trie.insert('pizza');
-  console.log(JSON.stringify(trie, null, 2))
+
+  console.log(JSON.stringify(trie, null, 2));
+
+  trie.insert('piece');
+  console.log(JSON.stringify(trie, null, 2));
+
   it('should have a root node with a p child', () => {
     expect(trie.root.children.hasOwnProperty('p')).to.equal(true);
   });
@@ -52,6 +57,10 @@ describe('INSERT', () => {
   it('should set the wordEnd property of the last letter to true', () => {
     expect(trie.root.children['p'].children['i'].children['z'].children['z'].children['a'].wordEnd).to.equal(true);
   });
+
+  it('should keep count of how many nodes there are', () => {
+    expect(trie.count()).to.equal(1);
+  })
 
 });
 
