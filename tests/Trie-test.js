@@ -87,10 +87,9 @@ describe('POPULATE', () => {
 describe('SUGGEST', () => {
   it('should return an array', () => {
     let trie = new Trie();
-    trie.insert('pizza');
-    trie.insert('pize');
-    expect(trie.suggest('piz')).to.be.array;
-    expect(trie.suggest('piz')).to.deep.equal(['pizza']);
+    trie.populate();
+    console.log(trie.suggest('za'));
+    expect(trie.suggest('za')).to.be.array;
 
   });
 
