@@ -63,7 +63,6 @@ describe('INSERT', () => {
     expect(trie.root.children['p'].children['i'].children.hasOwnProperty('z')).to.equal(true);
     expect(trie.root.children['p'].children['i'].children.hasOwnProperty('e')).to.equal(true);  
   });
-
 });
 
 describe('COUNT', () => {
@@ -84,3 +83,17 @@ describe('POPULATE', () => {
     trie.populate();
   });
 });
+
+describe('SUGGEST', () => {
+  it('should return an array', () => {
+    let trie = new Trie();
+    trie.insert('pizza');
+    trie.insert('pize');
+    expect(trie.suggest('piz')).to.be.array;
+    expect(trie.suggest('piz')).to.deep.equal(['pizza']);
+
+  });
+
+});
+
+
