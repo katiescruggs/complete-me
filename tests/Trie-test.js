@@ -28,12 +28,7 @@ describe('TRIE', () => {
 describe('INSERT', () => {
   let trie = new Trie();
   trie.insert('pizza');
-
   console.log(JSON.stringify(trie, null, 2));
-
-  trie.insert('piece');
-  console.log(JSON.stringify(trie, null, 2));
-
   it('should have a root node with a p child', () => {
     expect(trie.root.children.hasOwnProperty('p')).to.equal(true);
   });
@@ -60,7 +55,14 @@ describe('INSERT', () => {
 
   it('should keep count of how many nodes there are', () => {
     expect(trie.count()).to.equal(1);
-  })
+  });
+
+  it('should dive into the tree to insert nodes if a word starts with an existing node', function() {
+    trie.insert('piece');
+    expect(trie.count()).to.equal(2);
+    expect(trie.root.children['p'].children['i'].children.hasOwnProperty('z')).to.equal(true);
+    expect(trie.root.children['p'].children['i'].children.hasOwnProperty('e')).to.equal(true);  
+  });
 
 });
 
@@ -72,5 +74,13 @@ describe('COUNT', () => {
     expect(trie.count()).to.equal(1);
     trie.insert('apple');
     expect(trie.count()).to.equal(2);
+  });
+});
+
+
+describe('POPULATE', () => {
+  it('should fill the trie with the dictionary', () => {
+    let trie = new Trie();
+    trie.populate();
   });
 });
