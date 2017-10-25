@@ -98,9 +98,14 @@ describe('SUGGEST', () => {
 describe('SELECT', () => {
   it('should do stuff', () => {
     let trie = new Trie();
-    trie.select('doggo');
-    trie.select('Liz-pup');
-    trie.select('doggo');
+    trie.insert('dog');
+    trie.insert('dingo');
+    trie.insert('doppler');
+
+    console.log(trie.suggest('d')); // ['dog', 'doppler', 'dingo']
+    trie.select('dingo');
+    trie.select('dingo');
+    console.log(trie.prioritizeSuggestions(['dog', 'doppler', 'dingo']));
   });
 });
 
