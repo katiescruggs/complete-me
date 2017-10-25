@@ -81,6 +81,7 @@ describe('POPULATE', () => {
   it('should fill the trie with the dictionary', () => {
     let trie = new Trie();
     trie.populate();
+    expect(trie.count()).to.equal(235886);
   });
 });
 
@@ -91,9 +92,16 @@ describe('SUGGEST', () => {
     trie.insert('pizza');
     expect(trie.suggest('piz')).to.be.array;
     expect(trie.suggest('piz')).to.deep.equal(['pizza']);
-
   });
+});
 
+describe('SELECT', () => {
+  it('should do stuff', () => {
+    let trie = new Trie();
+    trie.select('doggo');
+    trie.select('Liz-pup');
+    trie.select('doggo');
+  });
 });
 
 
