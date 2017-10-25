@@ -86,12 +86,28 @@ describe('POPULATE', () => {
 });
 
 describe('SUGGEST', () => {
-  it('should return an array', () => {
+  it('should take in a string and return an array', () => {
     let trie = new Trie();
     //trie.populate();
     trie.insert('pizza');
     expect(trie.suggest('piz')).to.be.array;
-    expect(trie.suggest('piz')).to.deep.equal(['pizza']);
+  });
+
+  it('should suggest all words matching the phrase parameter (small sample)', () => {
+    let trie = new Trie();
+    trie.insert('dead');
+    trie.insert('dirt');
+    trie.insert('done');
+    trie.insert('donuts');
+
+    expect(trie.suggest('d')).to.deep.equal(['dead', 'dirt', 'done', 'donuts']);
+    expect(trie.suggest('do')).to.deep.equal(['done', 'donuts']);
+  });
+
+  it('should suggest all words matching the phrase parameter (large sample)', () => {
+    let trie = new Trie();
+    trie.populate();
+    expect(trie.suggest('piz')).to.deep.equal(['pize', 'pizza', 'pizzeria', 'pizzicato', 'pizzle']);
   });
 });
 
@@ -107,6 +123,10 @@ describe('SELECT', () => {
     trie.select('dingo');
     console.log(trie.prioritizeSuggestions(['dog', 'doppler', 'dingo']));
   });
+
+
+
+  
 });
 
 
