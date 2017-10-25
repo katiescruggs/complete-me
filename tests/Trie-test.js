@@ -57,12 +57,22 @@ describe('INSERT', () => {
     expect(trie.count()).to.equal(1);
   });
 
-  it('should dive into the tree to insert nodes if a word starts with an existing node', function() {
+  it('should dive into the tree to insert nodes if a word starts with an existing node', () => {
     trie.insert('piece');
     expect(trie.count()).to.equal(2);
     expect(trie.root.children['p'].children['i'].children.hasOwnProperty('z')).to.equal(true);
     expect(trie.root.children['p'].children['i'].children.hasOwnProperty('e')).to.equal(true);  
   });
+
+  it('should not create duplicates if the same word is inserted more than once', () => {
+    trie.insert('dog');
+    trie.insert('dog');
+
+    expect(trie.count()).to.equal(3);
+    expect(trie.suggest('piz')).to.deep.equal(['pizza']);
+  });
+
+
 });
 
 describe('COUNT', () => {
@@ -88,7 +98,6 @@ describe('POPULATE', () => {
 describe('SUGGEST', () => {
   it('should take in a string and return an array', () => {
     let trie = new Trie();
-    //trie.populate();
     trie.insert('pizza');
     expect(trie.suggest('piz')).to.be.array;
   });
@@ -112,21 +121,43 @@ describe('SUGGEST', () => {
 });
 
 describe('SELECT', () => {
-  it('should do stuff', () => {
+  it('should update the value of the this.selections object', () => {
+    let trie = new Trie();
+    trie.insert('hello');
+    trie.insert('goodbye');
+    expect(trie.selections).to.deep.equal({});
+
+    trie.select('hello');
+    trie.select('hello');
+    expect(trie.selections).to.deep.equal({'hello': 2});
+  });
+
+
+  it('should return prioritized items first when returning suggestions array (small sample)', () => {
     let trie = new Trie();
     trie.insert('dog');
     trie.insert('dingo');
     trie.insert('doppler');
 
-    console.log(trie.suggest('d')); // ['dog', 'doppler', 'dingo']
+    expect(trie.suggest('d')).to.deep.equal(['dog', 'doppler', 'dingo']);
+
     trie.select('dingo');
-    trie.select('dingo');
-    console.log(trie.prioritizeSuggestions(['dog', 'doppler', 'dingo']));
+
+    expect(trie.suggest('d')).to.deep.equal(['dingo', 'dog', 'doppler']);
   });
 
+  it('should return prioritized items first when returning suggestions array (large sample)', () => {
+    let trie = new Trie();
+    trie.populate();
 
+    expect(trie.suggest('piz')).to.deep.equal(['pize', 'pizza', 'pizzeria', 'pizzicato', 'pizzle']);
 
-  
+    trie.select('pizza');
+    trie.select('pizza');
+    trie.select('pizzle');
+
+    expect(trie.suggest('piz')).to.deep.equal(['pizza', 'pizzle', 'pize', 'pizzeria', 'pizzicato']);
+  });
 });
 
 
