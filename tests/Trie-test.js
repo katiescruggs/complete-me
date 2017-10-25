@@ -2,6 +2,10 @@ import { expect } from 'chai';
 import Node from '../lib/Node.js';
 import Trie from '../lib/Trie.js';
 
+import fs from 'fs';
+
+const text = '/usr/share/dict/words';
+const dictionary = fs.readFileSync(text).toString().trim().split('\n');
 
 describe('TRIE', () => {
   let trie;
@@ -72,7 +76,11 @@ describe('INSERT', () => {
     expect(trie.suggest('piz')).to.deep.equal(['pizza']);
   });
 
+  it('should sanitize cases of words so that everything is lowercase', () => {
+    trie.insert('Food');
 
+    expect(trie.suggest('f')).to.deep.equal(['food']);
+  });
 });
 
 describe('COUNT', () => {
@@ -90,8 +98,8 @@ describe('COUNT', () => {
 describe('POPULATE', () => {
   it('should fill the trie with the dictionary', () => {
     let trie = new Trie();
-    trie.populate();
-    expect(trie.count()).to.equal(235886);
+    trie.populate(dictionary);
+    expect(trie.count()).to.equal(234371);
   });
 });
 
@@ -115,8 +123,16 @@ describe('SUGGEST', () => {
 
   it('should suggest all words matching the phrase parameter (large sample)', () => {
     let trie = new Trie();
-    trie.populate();
+    trie.populate(dictionary);
     expect(trie.suggest('piz')).to.deep.equal(['pize', 'pizza', 'pizzeria', 'pizzicato', 'pizzle']);
+  });
+
+  it('should return empty array if the phrase does not match any words', () => {
+    let trie = new Trie();
+    trie.insert('piece');
+    trie.insert('pizza');
+
+    expect(trie.suggest('!')).to.deep.equal([]);
   });
 });
 
@@ -148,7 +164,7 @@ describe('SELECT', () => {
 
   it('should return prioritized items first when returning suggestions array (large sample)', () => {
     let trie = new Trie();
-    trie.populate();
+    trie.populate(dictionary);
 
     expect(trie.suggest('piz')).to.deep.equal(['pize', 'pizza', 'pizzeria', 'pizzicato', 'pizzle']);
 
