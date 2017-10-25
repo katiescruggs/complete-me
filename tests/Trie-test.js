@@ -137,15 +137,14 @@ describe('SUGGEST', () => {
 });
 
 describe('SELECT', () => {
-  it('should update the value of the this.selections object', () => {
+  it('should update the value of the Node property popularity', () => {
     let trie = new Trie();
-    trie.insert('hello');
-    trie.insert('goodbye');
-    expect(trie.selections).to.deep.equal({});
+    trie.insert('hey');
+    expect(trie.root.children['h'].children['e'].children['y'].popularity).to.equal(0);
 
-    trie.select('hello');
-    trie.select('hello');
-    expect(trie.selections).to.deep.equal({'hello': 2});
+    trie.select('hey');
+    trie.select('hey');
+    expect(trie.root.children['h'].children['e'].children['y'].popularity).to.equal(2);
   });
 
 
