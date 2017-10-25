@@ -70,10 +70,11 @@ describe('INSERT', () => {
 
   it('should not create duplicates if the same word is inserted more than once', () => {
     trie.insert('dog');
-    trie.insert('dog');
-
     expect(trie.count()).to.equal(3);
-    expect(trie.suggest('piz')).to.deep.equal(['pizza']);
+
+    trie.insert('dog');
+    expect(trie.count()).to.equal(3);
+    expect(trie.suggest('d')).to.deep.equal(['dog']);
   });
 
   it('should sanitize cases of words so that everything is lowercase', () => {
@@ -94,9 +95,14 @@ describe('COUNT', () => {
   });
 });
 
-
 describe('POPULATE', () => {
-  it('should fill the trie with the dictionary', () => {
+  it('should fill the trie with an array of ten words', () => {
+    let trie = new Trie();
+    trie.populate(['a', 'and', 'be', 'for', 'have', 'in', 'not', 'that', 'the', 'to']);
+    expect(trie.count()).to.equal(10);
+  });
+
+  it('should fill the trie with the dictionary imported in this file', () => {
     let trie = new Trie();
     trie.populate(dictionary);
     expect(trie.count()).to.equal(234371);
@@ -127,12 +133,19 @@ describe('SUGGEST', () => {
     expect(trie.suggest('piz')).to.deep.equal(['pize', 'pizza', 'pizzeria', 'pizzicato', 'pizzle']);
   });
 
-  it('should return empty array if the phrase does not match any words', () => {
+  it('should return empty array if the phrase does not match any words (small sample)', () => {
     let trie = new Trie();
     trie.insert('piece');
     trie.insert('pizza');
 
     expect(trie.suggest('!')).to.deep.equal([]);
+  });
+
+  it('should return empty array if the phrase does not match any words (large sample)', () => {
+    let trie = new Trie();
+    trie.populate(dictionary);
+
+    expect(trie.suggest('zzz')).to.deep.equal([]);
   });
 });
 
