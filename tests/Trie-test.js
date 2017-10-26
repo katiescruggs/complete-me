@@ -32,7 +32,6 @@ describe('TRIE', () => {
 describe('INSERT', () => {
   let trie = new Trie();
   trie.insert('pizza');
-  console.log(JSON.stringify(trie, null, 2));
   it('should have a root node with a p child', () => {
     expect(trie.root.children.hasOwnProperty('p')).to.equal(true);
   });
