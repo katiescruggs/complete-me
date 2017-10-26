@@ -1,6 +1,11 @@
 const Node = require('./lib/Node.js');
 const Trie = require('./lib/Trie.js');
 
+module.exports = {
+  Node,
+  Trie
+};
+
 import $ from 'jquery'
 global.jQuery = require('jquery');
 
@@ -14,14 +19,9 @@ $.get(text, function (data) {
   trie.populate(dictionary);
 });
 
-module.exports = {
-  Node,
-  Trie
-};
-
 $('.user-input').on('keyup', function() {
   $('.result-section').text('');
-
+  
   if($('.user-input').val().length > 2) {
     displayResults($('.user-input').val());
   }
