@@ -1,0 +1,63 @@
+* {
+  font-family: sans-serif;
+  font-size: 20px;
+  margin: 0;
+}
+
+html {
+  background-image: url('./background-image.png');
+  background-size: 100%;
+}
+
+body {
+  margin: 0 auto;
+  width: 40%;
+}
+
+h1 {
+  font-size: 200%;
+  font-weight: normal;
+  margin: 50px 0 30px 0;
+  text-align: center;
+}
+
+input {
+  border: solid #36454f 2px;
+  font-size: 120%;
+  margin: 20px;
+  padding: 10px;
+  width: 100%;
+}
+
+::placeholder {
+  color: #36454f;
+}
+
+.result {
+  background-color: white;
+  border: solid #36454f 1.5px;
+  color: #36454f;
+  padding: 10px;
+  margin: 20px;
+  width: 100%;
+}
+
+.result:hover {
+  cursor: pointer;
+}
+
+.hide {
+  display: none;
+}
+
+@media screen and (max-width: 820px) {
+  body {
+    width: 50%;
+  }
+}
+
+@media screen and (max-width: 400px) {
+  body {
+    width: 75%;
+  }
+}
