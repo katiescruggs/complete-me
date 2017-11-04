@@ -1,6 +1,6 @@
-import { expect } from 'chai';
-import Node from '../lib/Node.js';
-import Trie from '../lib/Trie.js';
+const { expect } = require('chai');
+const Node = require('../lib/Node.js');
+const Trie = require('../lib/Trie.js');
 
 import fs from 'fs';
 

@@ -1,5 +1,5 @@
-import { expect } from 'chai';
-import Node from '../lib/Node.js';
+const { expect } = require('chai');
+const Node = require( '../lib/Node.js');
 
 describe('NODE', () => {
   let node;
